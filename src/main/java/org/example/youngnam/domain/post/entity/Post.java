@@ -1,9 +1,6 @@
 package org.example.youngnam.domain.post.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +19,7 @@ public class Post extends BaseTimeEntity {
     private String postPreContent; // 사용자가 등록한 내용
     private String postResultContent; // 앱을 통해 변경한 후 내용
     private long userId;
+
+    @Enumerated(EnumType.STRING)
+    private PostStatus postStatus;
 }
