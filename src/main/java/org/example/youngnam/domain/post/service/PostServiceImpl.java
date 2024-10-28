@@ -36,9 +36,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(Long postId, String gptResult) {
-
-        return null;
+    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO, Long userId) {
+        Post findPost = getPostByPostId(requestDTO.getPostId());
+        findPost.savePostFinalContent(requestDTO.getPostFinalContent());
+        return postMapper.toPostFinalContentSaveDTO(findPost);
     }
 
 

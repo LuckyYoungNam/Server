@@ -21,15 +21,15 @@ public class PostFacade {
     //    private final UserService userService;
 
     @Transactional
-    public PostResponseDTO.PostGptContentSaveDTO createPostAndGenerateContent(PostRequestDTO.PostPreContentSaveDTO requestDTO) {
+    public PostResponseDTO.PostGptContentSaveDTO savePostAndGenerateGptContent(PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         Post savedPost = postService.savePostPreContent(requestDTO, 1L);
 
         String gptContent = "";
         return postService.savePostGptContent(gptContent, savedPost);
     }
 
-//    @Transactional
-//    public PostResponseDTO.PostFinalContentSaveDTO finalizePost(PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
-//        return postService.savePostResultContent(savedPost.getPostId(), gptResult);
-//    }
+    @Transactional
+    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
+        return postService.savePostFinalContent(requestDTO, 1L);
+    }
 }

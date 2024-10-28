@@ -2,7 +2,6 @@ package org.example.youngnam.domain.post.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.youngnam.domain.post.entity.PostStatus;
 
 public class PostRequestDTO {
     @Getter
@@ -13,9 +12,8 @@ public class PostRequestDTO {
 
     @Getter
     @AllArgsConstructor
-    public static class PostResultContentSaveDTO {
+    public static class PostFinalContentSaveDTO {
         private Long postId;
-        private String postResultContent;
-        private long userId;
+        private String postFinalContent;
     }
 }

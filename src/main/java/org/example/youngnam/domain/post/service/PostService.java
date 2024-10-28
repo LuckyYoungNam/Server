@@ -7,6 +7,6 @@ import org.example.youngnam.domain.post.entity.Post;
 public interface PostService {
     Post savePostPreContent(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId);
     PostResponseDTO.PostGptContentSaveDTO savePostGptContent(String gptResult, Post post);
-    PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(Long postId, String gptResult);
+    PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDto, Long userId);
     Post getPostByPostId(Long postId);
 }
