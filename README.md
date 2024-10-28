@@ -12,7 +12,7 @@
 ## ⚙️ 개발 환경
 - `Java 21`
 - **IDE** : IntelliJ IDEA
-- **Framework** : Springboot(3.3.4)
+- **Framework** : Springboot(3.3.5)
 - **Database** : MySQL
 - **ORM** : Hibernate (Spring Data JPA 사용)
 
