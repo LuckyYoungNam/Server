@@ -18,7 +18,6 @@ public interface PostMapper {
     Post toEntity(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId);
 
 
-    PostResponseDTO.PostPreContentSaveDTO toPostPreContentSaveDTO(Post post);
     PostResponseDTO.PostGptContentSaveDTO toPostGptContentSaveDTO(Post post);
     PostResponseDTO.PostFinalContentSaveDTO toPostFinalContentSaveDTO(Post post);
 }
