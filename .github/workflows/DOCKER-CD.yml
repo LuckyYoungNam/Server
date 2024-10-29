@@ -1,7 +1,7 @@
-name: DOCKER-CD
+name: CD
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 
 jobs:
   ci:
