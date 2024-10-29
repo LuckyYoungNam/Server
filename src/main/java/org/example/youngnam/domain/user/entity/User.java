@@ -10,6 +10,7 @@ import org.example.youngnam.global.base.BaseTimeEntity;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Builder
 @AllArgsConstructor
