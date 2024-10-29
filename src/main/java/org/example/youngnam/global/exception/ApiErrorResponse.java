@@ -1,17 +1,20 @@
 package org.example.youngnam.global.exception;
 
-import lombok.Getter;
+import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PROTECTED)
 public class ApiErrorResponse {
-    private ErrorCode errorCode;
-    private int errorStatus;
+    private HttpStatus errorStatus;
     private String message;
 
-    public ApiErrorResponse(ErrorCode errorCode, int errorStatus, String message) {
-        super();
-        this.errorCode = errorCode;
-        this.errorStatus = errorStatus;
-        this.message = message;
+    public static ApiErrorResponse of(final ErrorCode errorCode) {
+        return ApiErrorResponse.builder()
+                .errorStatus(errorCode.getStatus())
+                .message(errorCode.getMessage())
+                .build();
     }
 }
