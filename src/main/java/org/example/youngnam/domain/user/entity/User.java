@@ -1,10 +1,7 @@
 package org.example.youngnam.domain.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.youngnam.global.base.BaseTimeEntity;
 
 import java.time.LocalDateTime;
@@ -12,22 +9,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseTimeEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    private String socialId;
 
-    private String userName;
-    private Long kakaoId;
-    private String naverId;
-    private String instagramId;
-    private String daumId;
-
-    private LocalDateTime lastLoginDate;
-
-    @Enumerated(EnumType.STRING)
-    private UserStatus userStatus;
 }
