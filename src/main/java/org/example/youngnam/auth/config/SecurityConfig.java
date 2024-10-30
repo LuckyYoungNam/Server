@@ -27,6 +27,7 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtProvider jwtProvider;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final CorsConfig corsConfig;
     private static final String[] whiteList = {
             "/actuator/health",
             "/login",
@@ -39,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors-> cors.configurationSource(corsConfigurationSource()))
+//                .cors(cors-> cors.configurationSource(corsConfigurationSource()))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagementConfigurer ->
@@ -52,30 +53,31 @@ public class SecurityConfig {
                                 authorizationManagerRequestMatcherRegistry
                                         .anyRequest()
                                         .authenticated())
+                .addFilter(corsConfig.corsFilter())
 
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(exceptionHandlerFilter, JwtAuthenticationFilter.class)
                 .build();
     }
-    @Bean
-    protected CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", getDefaultCorsConfiguration());
-
-        return source;
-    }
-
-    private CorsConfiguration getDefaultCorsConfiguration() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setExposedHeaders(List.of("*"));
-
-        configuration.setMaxAge(3600L);
-
-        return configuration;
-    }
+//    @Bean
+//    protected CorsConfigurationSource corsConfigurationSource() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", getDefaultCorsConfiguration());
+//
+//        return source;
+//    }
+//
+//    private CorsConfiguration getDefaultCorsConfiguration() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+//        configuration.setAllowedHeaders(List.of("*"));
+//        configuration.setExposedHeaders(List.of("*"));
+//
+//        configuration.setMaxAge(3600L);
+//
+//        return configuration;
+//    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
