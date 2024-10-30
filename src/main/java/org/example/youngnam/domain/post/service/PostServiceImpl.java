@@ -36,14 +36,14 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO, Long userId) {
+        // TODO -> postId, userId 검증 로직 필요
         Post findPost = getPostByPostId(requestDTO.postId());
         findPost.savePostFinalContent(requestDTO.postFinalContent());
         return postMapper.toPostFinalContentSaveDTO(findPost);
     }
 
 
-    @Override
-    public Post getPostByPostId(Long postId) {
+    private Post getPostByPostId(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
     }
