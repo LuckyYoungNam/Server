@@ -16,8 +16,6 @@ public interface PostMapper {
     @Mapping(target = "postStatus", constant = "ACTIVE")
     @Mapping(target = "userId", source = "userId")
     Post toEntity(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId);
-
-
     PostResponseDTO.PostGptContentSaveDTO toPostGptContentSaveDTO(Post post);
     PostResponseDTO.PostFinalContentSaveDTO toPostFinalContentSaveDTO(Post post);
 }

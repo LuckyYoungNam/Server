@@ -1,19 +1,15 @@
 package org.example.youngnam.domain.post.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import jakarta.validation.constraints.NotNull;
 
 public class PostRequestDTO {
-    @Getter
-    @AllArgsConstructor
-    public static class PostPreContentSaveDTO {
-        private String postPreContent;
+    public record PostPreContentSaveDTO(
+           @NotNull String postPreContent
+    ) {
     }
-
-    @Getter
-    @AllArgsConstructor
-    public static class PostFinalContentSaveDTO {
-        private Long postId;
-        private String postFinalContent;
+    public record PostFinalContentSaveDTO(
+            @NotNull Long postId,
+            @NotNull String postFinalContent
+    ) {
     }
 }

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.youngnam.domain.post.dto.request.PostRequestDTO;
 import org.example.youngnam.domain.post.dto.response.PostResponseDTO;
 import org.example.youngnam.domain.post.entity.Post;
-import org.example.youngnam.domain.post.mapper.PostMapper;
 import org.example.youngnam.domain.post.service.PostService;
 import org.example.youngnam.global.gpt.service.GptService;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class PostFacade {
     public PostResponseDTO.PostGptContentSaveDTO savePostAndGenerateGptContent(PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         Post savedPost = postService.savePostPreContent(requestDTO, 1L);
 
-        String gptContent = "";
+        String gptContent = gptService.generateGptContent(savedPost.getPostGptContent());
         return postService.savePostGptContent(gptContent, savedPost);
     }
 

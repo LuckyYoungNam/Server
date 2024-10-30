@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // postgresql
     runtimeOnly 'org.postgresql:postgresql'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
 
@@ -58,6 +60,9 @@ dependencies {
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // WebClient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:3.3.1'
 }
 
 tasks.named('test') {
