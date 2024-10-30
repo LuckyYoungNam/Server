@@ -28,16 +28,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponseDTO.PostGptContentSaveDTO savePostGptContent(String gptResult, Post post) {
-        post.savePostGptContent(gptResult);
+    public PostResponseDTO.PostGptContentSaveDTO savePostGptContent(String gptContent, Post post) {
+        post.savePostGptContent(gptContent);
         return postMapper.toPostGptContentSaveDTO(post);
     }
 
     @Override
     @Transactional
     public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO, Long userId) {
-        Post findPost = getPostByPostId(requestDTO.getPostId());
-        findPost.savePostFinalContent(requestDTO.getPostFinalContent());
+        Post findPost = getPostByPostId(requestDTO.postId());
+        findPost.savePostFinalContent(requestDTO.postFinalContent());
         return postMapper.toPostFinalContentSaveDTO(findPost);
     }
 
