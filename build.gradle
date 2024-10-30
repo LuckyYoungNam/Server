@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // postgresql
     runtimeOnly 'org.postgresql:postgresql'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
 
