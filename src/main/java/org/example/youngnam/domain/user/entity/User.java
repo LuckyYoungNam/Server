@@ -1,10 +1,8 @@
 package org.example.youngnam.domain.user.entity;
 
+import io.micrometer.core.annotation.Counted;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.youngnam.global.base.BaseTimeEntity;
 
 import java.time.LocalDateTime;
@@ -12,22 +10,26 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseTimeEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
-    private String userName;
-    private Long kakaoId;
-    private String naverId;
-    private String instagramId;
-    private String daumId;
+    @Column(name = "social_id")
+    private String socialId;
 
-    private LocalDateTime lastLoginDate;
+    @Column(name = "naver_id")
+    private String naverId; //네이버 블로그용
 
-    @Enumerated(EnumType.STRING)
-    private UserStatus userStatus;
+    public static User create(final String socialId) {
+        return User.builder()
+                .socialId(socialId)
+                .build();
+    }
+
 }
