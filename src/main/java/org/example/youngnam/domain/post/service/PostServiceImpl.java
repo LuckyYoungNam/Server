@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public Post savePostPreContent(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId) {
-        return  postRepository.save(postMapper.toEntity(requestDTO, userId));
+        return  postRepository.save(Post.from(requestDTO, userId));
     }
 
     @Override

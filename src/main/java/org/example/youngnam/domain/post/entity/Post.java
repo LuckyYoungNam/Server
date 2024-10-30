@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.youngnam.domain.post.dto.request.PostRequestDTO;
 import org.example.youngnam.global.base.BaseTimeEntity;
 
 @Entity
@@ -30,6 +31,13 @@ public class Post extends BaseTimeEntity {
     @Column(name = "post_status")
     private PostStatus postStatus;
 
+    public static Post from(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId) {
+        return Post.builder()
+                .postPreContent(requestDTO.postPreContent())
+                .userId(userId)
+                .postStatus(PostStatus.ACTIVE)
+                .build();
+    }
     public void savePostGptContent(String postGptContent) {
         this.postGptContent = postGptContent;
     }
