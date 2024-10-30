@@ -9,6 +9,7 @@ import org.example.youngnam.auth.jwt.JwtProvider;
 import org.example.youngnam.global.Constants;
 import org.example.youngnam.global.exception.ErrorCode;
 import org.example.youngnam.global.exception.UnauthorizedException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -31,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getAccessToken(final HttpServletRequest request) {
-        final String accessToken = request.getHeader(Constants.AUTHORIZATION);
+        final String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (StringUtils.hasText(accessToken) && accessToken.startsWith(Constants.BEARER)) {
             return accessToken.substring(Constants.BEARER.length());
         }
