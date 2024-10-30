@@ -7,11 +7,10 @@ import org.example.youngnam.domain.post.dto.response.PostResponseDTO;
 import org.example.youngnam.domain.post.entity.Post;
 import org.example.youngnam.domain.post.mapper.PostMapper;
 import org.example.youngnam.domain.post.repository.PostRepository;
-import org.example.youngnam.global.exception.post.PostNotFoundException;
+import org.example.youngnam.global.exception.EntityNotFoundException;
+import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.example.youngnam.global.exception.ErrorCode.NOT_FOUND_POST;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +45,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostByPostId(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException(NOT_FOUND_POST));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
     }
 }

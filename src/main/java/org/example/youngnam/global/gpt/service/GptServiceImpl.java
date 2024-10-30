@@ -31,7 +31,7 @@ public class GptServiceImpl implements GptService {
 
     @Override
     @Transactional
-    public String generatePromotionalContent(String userContent) {
+    public String generateGptContent(String userContent) {
         GptRequestDTO requestDTO = new GptRequestDTO(model, PROMPT + userContent);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
