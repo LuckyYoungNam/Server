@@ -12,6 +12,7 @@ import org.example.youngnam.domain.image.mapper.ImageMapper;
 import org.example.youngnam.domain.image.repository.ImageRepository;
 import org.example.youngnam.global.exception.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
+import org.example.youngnam.global.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +53,8 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(MultipartFile finalImage, Long imageId, Long userId) throws IOException {
-        // TODO -> imageId, userId 검증 로직 필요
+        checkUnauthorized(imageId, userId);
+
         Image findImage = getImageByImageId(imageId);
 
         BufferedImage finalThumbnail = resizeThumbnail(finalImage);
@@ -86,6 +88,12 @@ public class ImageServiceImpl implements ImageService {
 
     private Image getImageByImageId(Long imageId) {
         return imageRepository.findById(imageId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_FOUND_IMAGE));
+    }
+
+    private void checkUnauthorized(Long imageId, Long userId) {
+        if (!imageRepository.existsByImageIdAndUserId(imageId, userId)) {
+            throw new UnauthorizedException(ErrorCode.UNAUTHORIZED_IMAGE);
+        }
     }
 }
