@@ -44,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(MultipartFile preImage, Long userId) throws IOException {
+    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(Long userId, MultipartFile preImage) throws IOException {
         BufferedImage preThumbnail = resizeThumbnail(preImage);
         String preThumbnailUrl = uploadImageToS3(preImage, preImgFolder);
         return imageMapper.toPreUrlDTO(
@@ -56,7 +56,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(MultipartFile finalImage, Long imageId, Long userId) throws IOException {
+    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(Long userId, Long imageId, MultipartFile finalImage) throws IOException {
         checkUnauthorized(imageId, userId);
 
         Image findImage = getImageByImageId(imageId);

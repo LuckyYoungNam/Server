@@ -3,6 +3,7 @@ package org.example.youngnam.domain.image.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.youngnam.auth.resolver.UserId;
 import org.example.youngnam.domain.image.dto.response.ImageResponseDTO;
 import org.example.youngnam.domain.image.facade.ImageFacade;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,14 @@ public class ImageController {
     private final ImageFacade imageFacade;
 
     @PostMapping("/save-pre")
-    public ResponseEntity<ImageResponseDTO.ImagePreUrlSaveDTO> uploadPreImage(@RequestParam("imagePreFile") MultipartFile imagePreFile) throws IOException, IOException {
-        return ResponseEntity.ok(imageFacade.uploadAndResizePreImage(imagePreFile));
+    public ResponseEntity<ImageResponseDTO.ImagePreUrlSaveDTO> uploadPreImage(@UserId final Long userId, @RequestParam("imagePreFile") final MultipartFile imagePreFile) throws IOException, IOException {
+        return ResponseEntity.ok(imageFacade.uploadAndResizePreImage(userId, imagePreFile));
     }
 
 
     @PostMapping("/save-final")
-    public ResponseEntity<ImageResponseDTO.ImageFinalUrlSaveDTO> uploadFinalImage(@RequestParam("imageFinalFile") MultipartFile imageFinalFile, @RequestParam("imageId") Long imageId) throws IOException {
-        return ResponseEntity.ok(imageFacade.uploadAndResizeFinalImage(imageFinalFile, imageId));
+    public ResponseEntity<ImageResponseDTO.ImageFinalUrlSaveDTO> uploadFinalImage(@UserId final Long userId, @RequestParam("imageId") final Long imageId, @RequestParam("imageFinalFile") final MultipartFile imageFinalFile) throws IOException {
+        return ResponseEntity.ok(imageFacade.uploadAndResizeFinalImage(userId, imageId, imageFinalFile));
     }
 
 }

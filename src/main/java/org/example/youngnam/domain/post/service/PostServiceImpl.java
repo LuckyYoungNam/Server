@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public Post savePostPreContent(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId) {
+    public Post savePostPreContent(Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         return  postRepository.save(Post.from(requestDTO, userId));
     }
 
@@ -36,7 +36,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO, Long userId) {
+    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
         checkUnauthorized(requestDTO.postId(), userId);
         Post findPost = getPostByPostId(requestDTO.postId());
         findPost.savePostFinalContent(requestDTO.postFinalContent());

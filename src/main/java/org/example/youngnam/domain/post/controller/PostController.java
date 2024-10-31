@@ -21,7 +21,7 @@ public class PostController {
 
     @PostMapping("/save-pre")
     @Operation(summary = "초기 홍보글 저장 후 반환", description = "초기 홍보글을 저장한 후 Gpt를 통해 홍보글 변환 후 반환한다.")
-    public ResponseEntity<PostResponseDTO.PostGptContentSaveDTO> savePreContent(@UserId final Long userId,  @RequestBody final PostRequestDTO.PostPreContentSaveDTO requestDTO)  {
+    public ResponseEntity<PostResponseDTO.PostGptContentSaveDTO> savePreContent(@UserId final Long userId, @RequestBody final PostRequestDTO.PostPreContentSaveDTO requestDTO)  {
         return ResponseEntity.ok().body(postFacade.savePostAndGenerateGptContent(userId, requestDTO));
     }
 
