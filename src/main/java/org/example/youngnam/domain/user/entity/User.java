@@ -23,8 +23,14 @@ public class User {
     @Column(name = "social_id")
     private String socialId;
 
-    @Column(name = "naver_id")
-    private String naverId; //네이버 블로그용
+    @Column(name = "business_name")
+    private String businessName; //상호명
+
+    @Column(name = "business_location")
+    private String businessLocation; //장소
+
+    @Column(name = "business_address")
+    private String businessAddress; //주소
 
     public static User create(final String socialId) {
         return User.builder()
