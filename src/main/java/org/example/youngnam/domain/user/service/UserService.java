@@ -37,7 +37,7 @@ public class UserService {
 
     private User findUserById(final Long userID) {
         return userRepository.findById(userID).orElseThrow(
-                () -> new EntityNotFoundException(ErrorCode.NOT_FOUND_USER)
+                IllegalArgumentException::new
         );
     }
 }
