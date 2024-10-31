@@ -20,13 +20,13 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: ✔️ create application.yml
+      - name: application.yml 생성
         run: |
-          cd ./Server/src/main/resources
+          mkdir -p ./src/main/resources && cd $_
           touch ./application.yml
-          echo "$CD_APPLICATION" > ./application.yml
-        env:
-          APPLICATION_DEV: ${{ secrets.APPLICATION_DEV }}
+          echo "${{ secrets.CD_APPLICATION }}" > ./application.yml
+          cat ./application.yml
+        working-directory: ${{ env.working-directory }}
 
       - name: 빌드
         run: |
