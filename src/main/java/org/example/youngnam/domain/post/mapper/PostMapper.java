@@ -12,4 +12,5 @@ public interface PostMapper {
 
     PostResponseDTO.PostGptContentSaveDTO toPostGptContentSaveDTO(Post post);
     PostResponseDTO.PostFinalContentSaveDTO toPostFinalContentSaveDTO(Post post);
+    PostResponseDTO.PostFindDetailDTO toPostFindDetailDTO(Post post);
 }
