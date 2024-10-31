@@ -20,13 +20,13 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: application.yml 생성
+      - name: ✔️ create application.yml
         run: |
-          mkdir -p ./src/main/resources && cd $_
+          cd ./doorip-api/src/main/resources
           touch ./application.yml
-          echo "${{ secrets.CD_APPLICATION }}" > ./application.yml
-          cat ./application.yml
-        working-directory: ${{ env.working-directory }}
+          echo "$CD_APPLICATION" > ./application.yml
+        env:
+          APPLICATION_DEV: ${{ secrets.APPLICATION_DEV }}
 
       - name: 빌드
         run: |
