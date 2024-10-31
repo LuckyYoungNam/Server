@@ -1,10 +1,7 @@
 package org.example.youngnam.domain.image.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.youngnam.global.base.BaseTimeEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +11,7 @@ import java.awt.image.BufferedImage;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Image extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

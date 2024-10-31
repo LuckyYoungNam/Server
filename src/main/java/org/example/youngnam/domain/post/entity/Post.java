@@ -1,10 +1,7 @@
 package org.example.youngnam.domain.post.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.youngnam.domain.post.dto.request.PostRequestDTO;
 import org.example.youngnam.global.base.BaseTimeEntity;
 
@@ -12,18 +9,20 @@ import org.example.youngnam.global.base.BaseTimeEntity;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long postId;
-    @Column(name = "post_pre_content")
+    @Column(name = "post_pre_content", columnDefinition = "TEXT")
     private String postPreContent; // 사용자가 등록한 내용
-    @Column(name = "post_gpt_content")
-    private String postGptContent; // 지피티가 반환하 내용
-    @Column(name = "post_final_content")
-    private String postFinalContent; // 최종 내용
+
+    @Column(name = "post_gpt_content", columnDefinition = "TEXT")
+    private String postGptContent; // 지피티가 반환한 내용
+
+    @Column(name = "post_final_content", columnDefinition = "TEXT")
+    private String postFinalContent;// 최종 내용
     @Column(name = "user_id")
     private long userId;
 
