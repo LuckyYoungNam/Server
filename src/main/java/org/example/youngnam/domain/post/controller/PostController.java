@@ -8,6 +8,9 @@ import org.example.youngnam.auth.resolver.UserId;
 import org.example.youngnam.domain.post.dto.request.PostRequestDTO;
 import org.example.youngnam.domain.post.dto.response.PostResponseDTO;
 import org.example.youngnam.domain.post.facade.PostFacade;
+import org.example.youngnam.domain.post.vo.PostFindOneVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +32,17 @@ public class PostController {
     @Operation(summary = "최종 홍보글 저장", description = "최종 홍보글을 저장한다.")
     public ResponseEntity<PostResponseDTO.PostFinalContentSaveDTO> saveFinalContent(@UserId final Long userId, @RequestBody final PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
         return ResponseEntity.ok().body(postFacade.savePostFinalContent(userId, requestDTO));
+    }
+
+    @GetMapping("/findAll")
+    @Operation(summary = "이전 홍보 글 전체 조회", description = "이전 홍보 글을 전체 조회한다.")
+    public Page<PostFindOneVO> findAll(@UserId final Long userId, Pageable pageable) {
+        return postFacade.findAll(userId, pageable);
+    }
+
+    @GetMapping("/findOne/{postId}")
+    @Operation(summary = "홍보 글 조회", description = "홍보 글 조회한다.")
+    public PostResponseDTO.PostFindDetailDTO findOne(@UserId final Long userId, @PathVariable Long postId) {
+        return postFacade.findDetail(userId, postId);
     }
 }
