@@ -12,8 +12,7 @@ public class PostResponseDTO {
             Long postId,
             String postPreContent,
             String postGptContent,
-            String postFinalContent,
-            Long userId
+            String postFinalContent
     ) {
     }
 }

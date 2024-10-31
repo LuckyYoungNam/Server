@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostFacade postFacade;
 
-    @PostMapping("/save-preContent")
+    @PostMapping("/save-pre")
     @Operation(summary = "초기 홍보글 저장 후 반환", description = "초기 홍보글을 저장한 후 Gpt를 통해 홍보글 변환 후 반환한다.")
     public ResponseEntity<PostResponseDTO.PostGptContentSaveDTO> savePreContent(@RequestBody PostRequestDTO.PostPreContentSaveDTO requestDTO)  {
         return ResponseEntity.ok().body(postFacade.savePostAndGenerateGptContent(requestDTO));
     }
 
-    @PostMapping("/save-finalContent")
+    @PostMapping("/save-final")
     @Operation(summary = "최종 홍보글 저장", description = "최종 홍보글을 저장한다.")
     public ResponseEntity<PostResponseDTO.PostFinalContentSaveDTO> saveFinalContent(@RequestBody PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
         return ResponseEntity.ok().body(postFacade.savePostFinalContent(requestDTO));

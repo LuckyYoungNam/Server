@@ -25,7 +25,7 @@ public class GptServiceImpl implements GptService {
     @Value("${gpt.api.key}")
     private String apiKey;
 
-    private static final String PROMPT = "홍보글을 블로그 홍보 형식으로 작성해줘: ";
+    private static final String PROMPT = "“사용자가 작성한 짧은 멘트를 참고하여, 친근하고 귀여운 블로그 스타일로 길이감 있게 확장해 주세요. 이모티콘을 적절히 섞어 가게의 따뜻하고 포근한 분위기를 표현해 주세요. 고객들이 편안하고 친근한 느낌을 받을 수 있도록 문장과 표현을 세심하게 다듬어 주세요. 예를 들어, ‘따뜻한 ☕ 커피 한 잔과 함께 여유를 즐겨보세요’처럼 따뜻한 분위기와 매력을 담아 주세요.";
 
     private final RestTemplate restTemplate;
 

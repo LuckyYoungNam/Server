@@ -9,6 +9,7 @@ import org.example.youngnam.domain.post.mapper.PostMapper;
 import org.example.youngnam.domain.post.repository.PostRepository;
 import org.example.youngnam.global.exception.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
+import org.example.youngnam.global.exception.UnauthorizedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public Post savePostPreContent(PostRequestDTO.PostPreContentSaveDTO requestDTO, Long userId) {
-        return  postRepository.save(postMapper.toEntity(requestDTO, userId));
+        return  postRepository.save(Post.from(requestDTO, userId));
     }
 
     @Override
@@ -36,15 +37,20 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(PostRequestDTO.PostFinalContentSaveDTO requestDTO, Long userId) {
+        checkUnauthorized(requestDTO.postId(), userId);
         Post findPost = getPostByPostId(requestDTO.postId());
         findPost.savePostFinalContent(requestDTO.postFinalContent());
         return postMapper.toPostFinalContentSaveDTO(findPost);
     }
 
-
-    @Override
-    public Post getPostByPostId(Long postId) {
+    private Post getPostByPostId(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_FOUND_POST));
+    }
+
+    private void checkUnauthorized(Long postId, Long userId) {
+        if (!postRepository.existsByPostIdAndUserId(postId, userId)) {
+            throw new UnauthorizedException(ErrorCode.UNAUTHORIZED_POST);
+        }
     }
 }

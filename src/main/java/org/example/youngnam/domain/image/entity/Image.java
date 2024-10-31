@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.youngnam.global.base.BaseTimeEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.awt.image.BufferedImage;
 
 @Entity
 @Getter
@@ -21,24 +24,35 @@ public class Image extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ImageStatus imageStatus;
 
-    /** 원본 **/
-    private String imagePreUrl;
-    private String imagePrePath;
-    private String imagePreFileName;
-    private double imagePreWidth;
-    private double imagePreHeight;
 
-    /** 결과 **/
-    private String imageResultUrl;
-    private String imageResultPath;
-    private String imageResultFileName;
-    private double imageResultWidth;
-    private double imageResultHeight;
+    /** 초기 이미지의 썸네일 **/
+    private String preThumbnailUrl;
+    private String preThumbnailPath;
+    private String preThumbnailFileName;
+    private double preThumbnailWidth;
+    private double preThumbnailHeight;
 
-    /** thumbnail **/
-    private String thumbnailUrl;
-    private String thumbnailPath;
-    private String thumbnailPathFileName;
-    private double thumbnailWidth;
-    private double thumbnailHeight;
+    /** 최종 커스텀된 이미지의 썸네일 **/
+    private String finalThumbnailUrl;
+    private String finalThumbnailPath;
+    private String finalThumbnailFileName;
+    private double finalThumbnailWidth;
+    private double finalThumbnailHeight;
+
+    public static Image from(MultipartFile preImage, String preThumbnailUrl, BufferedImage preThumbnail, Long userId) {
+        return Image.builder()
+                .userId(userId)
+                .imageFormat(preImage.getContentType())
+                .preThumbnailUrl(preThumbnailUrl)
+                .preThumbnailWidth(preThumbnail.getWidth())
+                .preThumbnailHeight(preThumbnail.getHeight())
+                .imageStatus(ImageStatus.ACTIVE)
+                .build();
+    }
+
+    public void updateFinalThumbnail(String finalThumbnailUrl, BufferedImage finalThumbnail) {
+        this.finalThumbnailUrl = finalThumbnailUrl;
+        this.finalThumbnailWidth = finalThumbnail.getWidth();
+        this.finalThumbnailHeight = finalThumbnail.getHeight();
+    }
 }
