@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.youngnam.domain.user.dto.UserBusinessInfoRes;
 import org.example.youngnam.domain.user.entity.User;
 import org.example.youngnam.domain.user.repository.UserRepository;
-import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
-import org.example.youngnam.global.exception.EntityNotFoundException;
 
 
 @Service
