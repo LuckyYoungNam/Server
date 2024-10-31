@@ -22,12 +22,12 @@ public class ImageFacade {
     // 초기 이미지 업로드 및 썸네일 저장
     @Transactional
     public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizePreImage(MultipartFile preImage) throws IOException {
-        return imageService.uploadAndResizeAndSavePreImage(preImage, 1L);
+        return imageService.uploadAndResizeAndSavePreImage(preImage, 4L);
     }
 
     // 최종 커스텀된 이미지 썸네일 저장
     @Transactional
     public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeFinalImage(MultipartFile finalImage, Long imageId) throws IOException {
-        return imageService.uploadAndResizeAndSaveFinalImage(finalImage, imageId, 1L);
+        return imageService.uploadAndResizeAndSaveFinalImage(finalImage, imageId, 4L);
     }
 }

@@ -7,9 +7,9 @@ import org.example.youngnam.domain.post.dto.response.PostResponseDTO;
 import org.example.youngnam.domain.post.entity.Post;
 import org.example.youngnam.domain.post.mapper.PostMapper;
 import org.example.youngnam.domain.post.repository.PostRepository;
-import org.example.youngnam.global.exception.EntityNotFoundException;
+import org.example.youngnam.global.exception.exceptions.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
-import org.example.youngnam.global.exception.UnauthorizedException;
+import org.example.youngnam.global.exception.exceptions.UnauthorizedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

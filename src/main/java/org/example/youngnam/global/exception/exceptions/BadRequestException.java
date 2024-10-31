@@ -1,4 +1,6 @@
-package org.example.youngnam.global.exception;
+package org.example.youngnam.global.exception.exceptions;
+
+import org.example.youngnam.global.exception.ErrorCode;
 
 public class BadRequestException extends YoungnamException {
   public BadRequestException() {

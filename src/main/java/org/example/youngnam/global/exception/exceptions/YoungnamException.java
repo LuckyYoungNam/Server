@@ -1,6 +1,7 @@
-package org.example.youngnam.global.exception;
+package org.example.youngnam.global.exception.exceptions;
 
 import lombok.Getter;
+import org.example.youngnam.global.exception.ErrorCode;
 
 @Getter
 public class YoungnamException extends RuntimeException {

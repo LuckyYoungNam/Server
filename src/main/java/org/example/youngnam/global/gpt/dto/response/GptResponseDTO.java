@@ -1,11 +1,9 @@
 package org.example.youngnam.global.gpt.dto.response;
 
-import lombok.Getter;
+import org.example.youngnam.global.gpt.dto.request.GptRequestDTO;
+import java.util.List;
 
-@Getter
-public class GptResponseDTO {
-    private String generatedContent;
-    public GptResponseDTO(String generatedContent) {
-        this.generatedContent = generatedContent;
+public record GptResponseDTO(List<Choice> choices) {
+    public record Choice(int index, GptRequestDTO.GptMessageDTO message) {
     }
 }
