@@ -35,14 +35,18 @@ public class ImageServiceImpl implements ImageService {
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
-    @Value("${cloud.aws.s3.place_review_img}")
-    private String imgFolder;
+    @Value("${cloud.aws.s3.preImgFolder}")
+    private String preImgFolder;
+
+    @Value("${cloud.aws.s3.finalImgFolder}")
+    private String finalImgFolder;
+
 
     @Override
     @Transactional
     public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(MultipartFile preImage, Long userId) throws IOException {
         BufferedImage preThumbnail = resizeThumbnail(preImage);
-        String preThumbnailUrl = uploadImageToS3(preImage, "pre-images/");
+        String preThumbnailUrl = uploadImageToS3(preImage, preImgFolder);
         return imageMapper.toPreUrlDTO(
                 imageRepository.save(
                         Image.from(preImage, preThumbnailUrl, preThumbnail, userId)
@@ -58,7 +62,7 @@ public class ImageServiceImpl implements ImageService {
         Image findImage = getImageByImageId(imageId);
 
         BufferedImage finalThumbnail = resizeThumbnail(finalImage);
-        String finalThumbnailUrl = uploadImageToS3(finalImage, "final-images/");
+        String finalThumbnailUrl = uploadImageToS3(finalImage, finalImgFolder);
 
         findImage.updateFinalThumbnail(finalThumbnailUrl, finalThumbnail);
 
@@ -66,7 +70,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private String uploadImageToS3(MultipartFile file, String folder) throws IOException {
-        String fileName = imgFolder + "/" + folder + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String fileName = "/" + folder + UUID.randomUUID() + "-" + file.getOriginalFilename();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
