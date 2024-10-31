@@ -37,8 +37,8 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(final Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
-        checkUnauthorized(requestDTO.postId(), userId);
         Post findPost = getPostByPostId(requestDTO.postId());
+        checkUnauthorized(requestDTO.postId(), userId);
         findPost.savePostFinalContent(requestDTO.postFinalContent());
         return postMapper.toPostFinalContentSaveDTO(findPost);
     }

@@ -59,8 +59,8 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(final Long userId, Long imageId, MultipartFile finalImage) throws IOException {
-        checkUnauthorized(imageId, userId);
         Image findImage = getImageByImageId(imageId);
+        checkUnauthorized(imageId, userId);
 
         BufferedImage finalThumbnail = resizeThumbnail(finalImage);
         String finalThumbnailUrl = uploadImageToS3(finalImage, finalImgFolder);
