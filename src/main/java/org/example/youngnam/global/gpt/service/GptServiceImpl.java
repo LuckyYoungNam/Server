@@ -56,7 +56,7 @@ public class GptServiceImpl implements GptService {
                     .bodyToMono(GptResponseDTO.class)
                     .retryWhen(Retry.fixedDelay(RETRY_ATTEMPTS, Duration.ofSeconds(RETRY_DELAY_SECONDS)))
                     .doOnError(e -> log.error("GPT 요청 중 오류 발생: {}", e.getMessage()))
-                    .map(response -> response.getChoices().get(0).getMessage().content())
+                    .map(response -> response.choices().get(0).message().content())
                     .block();
         } catch (Exception e) {
             log.error("GPT 서비스 호출 실패", e);
