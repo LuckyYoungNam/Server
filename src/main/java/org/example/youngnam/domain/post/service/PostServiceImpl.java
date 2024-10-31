@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public Post savePostPreContent(Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
+    public Post savePostPreContent(final Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         return  postRepository.save(Post.from(requestDTO, userId));
     }
 
@@ -36,19 +36,19 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
+    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(final Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
         checkUnauthorized(requestDTO.postId(), userId);
         Post findPost = getPostByPostId(requestDTO.postId());
         findPost.savePostFinalContent(requestDTO.postFinalContent());
         return postMapper.toPostFinalContentSaveDTO(findPost);
     }
 
-    private Post getPostByPostId(Long postId) {
+    private Post getPostByPostId(final Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_FOUND_POST));
     }
 
-    private void checkUnauthorized(Long postId, Long userId) {
+    private void checkUnauthorized(final Long postId, final Long userId) {
         if (!postRepository.existsByPostIdAndUserId(postId, userId)) {
             throw new UnauthorizedException(ErrorCode.UNAUTHORIZED_POST);
         }

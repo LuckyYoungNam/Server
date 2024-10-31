@@ -44,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(Long userId, MultipartFile preImage) throws IOException {
+    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(final Long userId, MultipartFile preImage) throws IOException {
         BufferedImage preThumbnail = resizeThumbnail(preImage);
         String preThumbnailUrl = uploadImageToS3(preImage, preImgFolder);
         return imageMapper.toPreUrlDTO(
@@ -56,7 +56,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(Long userId, Long imageId, MultipartFile finalImage) throws IOException {
+    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(final Long userId, Long imageId, MultipartFile finalImage) throws IOException {
         checkUnauthorized(imageId, userId);
 
         Image findImage = getImageByImageId(imageId);
@@ -91,12 +91,12 @@ public class ImageServiceImpl implements ImageService {
         return thumbnail;
     }
 
-    private Image getImageByImageId(Long imageId) {
+    private Image getImageByImageId(final Long imageId) {
         return imageRepository.findById(imageId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_FOUND_IMAGE));
     }
 
-    private void checkUnauthorized(Long imageId, Long userId) {
+    private void checkUnauthorized(final Long imageId, final Long userId) {
         if (!imageRepository.existsByImageIdAndUserId(imageId, userId)) {
             throw new UnauthorizedException(ErrorCode.UNAUTHORIZED_IMAGE);
         }

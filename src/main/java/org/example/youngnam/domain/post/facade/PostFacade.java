@@ -17,10 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostFacade {
     private final PostService postService;
     private final GptService gptService;
-    //    private final UserService userService;
 
     @Transactional
-    public PostResponseDTO.PostGptContentSaveDTO savePostAndGenerateGptContent(Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
+    public PostResponseDTO.PostGptContentSaveDTO savePostAndGenerateGptContent(final Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         Post savedPost = postService.savePostPreContent(userId, requestDTO);
 
         String gptContent = gptService.generateGptContent(savedPost.getPostGptContent());
@@ -28,7 +27,7 @@ public class PostFacade {
     }
 
     @Transactional
-    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
+    public PostResponseDTO.PostFinalContentSaveDTO savePostFinalContent(final Long userId, PostRequestDTO.PostFinalContentSaveDTO requestDTO) {
         return postService.savePostFinalContent(userId, requestDTO);
     }
 }
