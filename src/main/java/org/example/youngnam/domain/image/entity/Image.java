@@ -36,19 +36,23 @@ public class Image extends BaseTimeEntity {
     private double finalThumbnailWidth;
     private double finalThumbnailHeight;
 
-    public static Image from(MultipartFile preImage, String preThumbnailUrl, BufferedImage preThumbnail, Long userId) {
+    public static Image from(MultipartFile preImage, String preThumbnailUrl, String preThumbnailPath, BufferedImage preThumbnail, Long userId) {
         return Image.builder()
                 .userId(userId)
                 .imageFormat(preImage.getContentType())
                 .preThumbnailUrl(preThumbnailUrl)
+                .preThumbnailPath(preThumbnailPath)
+                .preThumbnailFileName(preImage.getOriginalFilename())
                 .preThumbnailWidth(preThumbnail.getWidth())
                 .preThumbnailHeight(preThumbnail.getHeight())
                 .imageStatus(ImageStatus.ACTIVE)
                 .build();
     }
 
-    public void updateFinalThumbnail(String finalThumbnailUrl, BufferedImage finalThumbnail) {
+    public void updateFinalThumbnail(String finalThumbnailUrl, String finalThumbnailPath, BufferedImage finalThumbnail, MultipartFile finalImage) {
         this.finalThumbnailUrl = finalThumbnailUrl;
+        this.finalThumbnailPath = finalThumbnailPath;
+        this.finalThumbnailFileName = finalImage.getOriginalFilename();
         this.finalThumbnailWidth = finalThumbnail.getWidth();
         this.finalThumbnailHeight = finalThumbnail.getHeight();
     }

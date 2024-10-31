@@ -47,9 +47,11 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(final Long userId, MultipartFile preImage) throws IOException {
         BufferedImage preThumbnail = resizeThumbnail(preImage);
         String preThumbnailUrl = uploadImageToS3(preImage, preImgFolder);
+        String preThumbnailPath = preImgFolder + "/" + preImage.getOriginalFilename();
+
         return imageMapper.toPreUrlDTO(
                 imageRepository.save(
-                        Image.from(preImage, preThumbnailUrl, preThumbnail, userId)
+                        Image.from(preImage, preThumbnailUrl, preThumbnailPath, preThumbnail, userId)
                 )
         );
     }
@@ -58,28 +60,29 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(final Long userId, Long imageId, MultipartFile finalImage) throws IOException {
         checkUnauthorized(imageId, userId);
-
         Image findImage = getImageByImageId(imageId);
 
         BufferedImage finalThumbnail = resizeThumbnail(finalImage);
         String finalThumbnailUrl = uploadImageToS3(finalImage, finalImgFolder);
+        String finalThumbnailPath = finalImgFolder + "/" + finalImage.getOriginalFilename();
 
-        findImage.updateFinalThumbnail(finalThumbnailUrl, finalThumbnail);
+        findImage.updateFinalThumbnail(finalThumbnailUrl, finalThumbnailPath, finalThumbnail, finalImage);
 
         return imageMapper.toFinalUrlDTO(findImage);
     }
 
     private String uploadImageToS3(MultipartFile file, String folder) throws IOException {
-        String fileName = folder + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String filePath = folder + "/" + fileName;
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
 
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), metadata)
+        amazonS3Client.putObject(new PutObjectRequest(bucket, filePath, file.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+        return amazonS3Client.getUrl(bucket, filePath).toString();
     }
 
     private BufferedImage resizeThumbnail(MultipartFile file) throws IOException {
