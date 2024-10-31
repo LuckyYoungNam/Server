@@ -44,42 +44,45 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(MultipartFile preImage, Long userId) throws IOException {
+    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizeAndSavePreImage(final Long userId, MultipartFile preImage) throws IOException {
         BufferedImage preThumbnail = resizeThumbnail(preImage);
         String preThumbnailUrl = uploadImageToS3(preImage, preImgFolder);
+        String preThumbnailPath = preImgFolder + "/" + preImage.getOriginalFilename();
+
         return imageMapper.toPreUrlDTO(
                 imageRepository.save(
-                        Image.from(preImage, preThumbnailUrl, preThumbnail, userId)
+                        Image.from(preImage, preThumbnailUrl, preThumbnailPath, preThumbnail, userId)
                 )
         );
     }
 
     @Override
     @Transactional
-    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(MultipartFile finalImage, Long imageId, Long userId) throws IOException {
-        checkUnauthorized(imageId, userId);
-
+    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeAndSaveFinalImage(final Long userId, Long imageId, MultipartFile finalImage) throws IOException {
         Image findImage = getImageByImageId(imageId);
+        checkUnauthorized(imageId, userId);
 
         BufferedImage finalThumbnail = resizeThumbnail(finalImage);
         String finalThumbnailUrl = uploadImageToS3(finalImage, finalImgFolder);
+        String finalThumbnailPath = finalImgFolder + "/" + finalImage.getOriginalFilename();
 
-        findImage.updateFinalThumbnail(finalThumbnailUrl, finalThumbnail);
+        findImage.updateFinalThumbnail(finalThumbnailUrl, finalThumbnailPath, finalThumbnail, finalImage);
 
         return imageMapper.toFinalUrlDTO(findImage);
     }
 
     private String uploadImageToS3(MultipartFile file, String folder) throws IOException {
-        String fileName = folder + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String filePath = folder + "/" + fileName;
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
 
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), metadata)
+        amazonS3Client.putObject(new PutObjectRequest(bucket, filePath, file.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+        return amazonS3Client.getUrl(bucket, filePath).toString();
     }
 
     private BufferedImage resizeThumbnail(MultipartFile file) throws IOException {
@@ -91,12 +94,12 @@ public class ImageServiceImpl implements ImageService {
         return thumbnail;
     }
 
-    private Image getImageByImageId(Long imageId) {
+    private Image getImageByImageId(final Long imageId) {
         return imageRepository.findById(imageId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_FOUND_IMAGE));
     }
 
-    private void checkUnauthorized(Long imageId, Long userId) {
+    private void checkUnauthorized(final Long imageId, final Long userId) {
         if (!imageRepository.existsByImageIdAndUserId(imageId, userId)) {
             throw new UnauthorizedException(ErrorCode.UNAUTHORIZED_IMAGE);
         }

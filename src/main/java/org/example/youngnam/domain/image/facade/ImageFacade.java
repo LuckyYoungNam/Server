@@ -17,17 +17,16 @@ import java.io.IOException;
 @Transactional(readOnly = true)
 public class ImageFacade {
     private final ImageService imageService;
-    private final AuthService authService;
 
     // 초기 이미지 업로드 및 썸네일 저장
     @Transactional
-    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizePreImage(MultipartFile preImage) throws IOException {
-        return imageService.uploadAndResizeAndSavePreImage(preImage, 4L);
+    public ImageResponseDTO.ImagePreUrlSaveDTO uploadAndResizePreImage(final Long userId, MultipartFile preImage) throws IOException {
+        return imageService.uploadAndResizeAndSavePreImage(userId, preImage);
     }
 
     // 최종 커스텀된 이미지 썸네일 저장
     @Transactional
-    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeFinalImage(MultipartFile finalImage, Long imageId) throws IOException {
-        return imageService.uploadAndResizeAndSaveFinalImage(finalImage, imageId, 4L);
+    public ImageResponseDTO.ImageFinalUrlSaveDTO uploadAndResizeFinalImage(final Long userId, Long imageId, MultipartFile finalImage) throws IOException {
+        return imageService.uploadAndResizeAndSaveFinalImage(userId, imageId, finalImage);
     }
 }
