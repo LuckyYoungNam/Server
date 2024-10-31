@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.youngnam.auth.jwt.JwtProvider;
 import org.example.youngnam.global.Constants;
 import org.example.youngnam.global.exception.ErrorCode;
-import org.example.youngnam.global.exception.UnauthorizedException;
+import org.example.youngnam.global.exception.exceptions.UnauthorizedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

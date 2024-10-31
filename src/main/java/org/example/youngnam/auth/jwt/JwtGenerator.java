@@ -5,7 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.example.youngnam.global.exception.ErrorCode;
-import org.example.youngnam.global.exception.UnauthorizedException;
+import org.example.youngnam.global.exception.exceptions.UnauthorizedException;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;

@@ -7,7 +7,7 @@ import org.example.youngnam.external.feign.kakao.api.KakaoGetTokenInfoFeignApi;
 import org.example.youngnam.external.feign.kakao.dto.KakaoAccessTokenInfoRes;
 import org.example.youngnam.external.feign.kakao.dto.KakaoAccessTokenRes;
 import org.example.youngnam.global.Constants;
-import org.example.youngnam.global.exception.BadRequestException;
+import org.example.youngnam.global.exception.exceptions.BadRequestException;
 import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Component;
 

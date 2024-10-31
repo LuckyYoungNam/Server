@@ -1,17 +1,12 @@
 package org.example.youngnam.global.gpt.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.youngnam.global.exception.GptException;
+import org.example.youngnam.global.exception.exceptions.GptException;
 import org.example.youngnam.global.gpt.dto.request.GptRequestDTO;
 import org.example.youngnam.global.gpt.dto.response.GptResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;

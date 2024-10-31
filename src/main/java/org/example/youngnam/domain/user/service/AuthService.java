@@ -7,7 +7,7 @@ import org.example.youngnam.domain.user.dto.UserLoginRes;
 import org.example.youngnam.domain.user.entity.User;
 import org.example.youngnam.domain.user.repository.UserRepository;
 import org.example.youngnam.external.feign.kakao.KakaoFeignProvider;
-import org.example.youngnam.global.exception.EntityNotFoundException;
+import org.example.youngnam.global.exception.exceptions.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 

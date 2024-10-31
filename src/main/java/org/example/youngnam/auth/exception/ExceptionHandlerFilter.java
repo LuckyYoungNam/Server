@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.youngnam.global.Constants;
 import org.example.youngnam.global.exception.ApiErrorResponse;
 import org.example.youngnam.global.exception.ErrorCode;
-import org.example.youngnam.global.exception.UnauthorizedException;
+import org.example.youngnam.global.exception.exceptions.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
