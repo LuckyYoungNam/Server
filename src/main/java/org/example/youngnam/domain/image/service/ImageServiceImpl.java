@@ -70,7 +70,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private String uploadImageToS3(MultipartFile file, String folder) throws IOException {
-        String fileName = "/" + folder + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String fileName = folder + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
+
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
