@@ -5,9 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.youngnam.domain.user.dto.UserBusinessInfoRes;
 import org.example.youngnam.domain.user.entity.User;
 import org.example.youngnam.domain.user.repository.UserRepository;
-//import org.example.youngnam.global.exception.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
+import org.example.youngnam.global.exception.EntityNotFoundException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class UserService {
 
     private User findUserById(final Long userID) {
         return userRepository.findById(userID).orElseThrow(
-//                () -> new EntityNotFoundException(ErrorCode.NOT_FOUND_USER)
+                () -> new EntityNotFoundException(ErrorCode.NOT_FOUND_USER)
         );
     }
 }
