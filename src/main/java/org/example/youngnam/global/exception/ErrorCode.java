@@ -33,8 +33,7 @@ public enum ErrorCode {
 
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다."),
-
-
+    GPT_SERVICE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "GPT 서비스 호출 중 오류 발생");
 
     ;
 

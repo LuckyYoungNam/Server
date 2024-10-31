@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.youngnam.global.exception.GptException;
 import org.example.youngnam.global.gpt.dto.request.GptRequestDTO;
 import org.example.youngnam.global.gpt.dto.response.GptResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,8 @@ import reactor.util.retry.Retry;
 
 import java.time.Duration;
 import java.util.List;
+
+import static org.example.youngnam.global.exception.ErrorCode.GPT_SERVICE_ERROR;
 
 
 @Service
@@ -59,8 +62,7 @@ public class GptServiceImpl implements GptService {
                     .map(response -> response.choices().get(0).message().content())
                     .block();
         } catch (Exception e) {
-            log.error("GPT 서비스 호출 실패", e);
-            throw new RuntimeException("GPT 서비스 호출 중 오류 발생", e);
+            throw new GptException(GPT_SERVICE_ERROR);
         }
     }
 }
