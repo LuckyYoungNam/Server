@@ -5,6 +5,8 @@ public class EntityNotFoundException extends YoungnamException {
         super(ErrorCode.ENTITY_NOT_FOUND);
     }
 
+
+
     public EntityNotFoundException(final ErrorCode errorCode) {
         super(errorCode);
     }
