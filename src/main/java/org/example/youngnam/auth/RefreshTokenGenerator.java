@@ -17,7 +17,6 @@ public class RefreshTokenGenerator {
     private final RefreshTokenRepository refreshTokenRepository;
     private static final int TOKEN_BYTE_SIZE = 60 * 6 / 8; // 45 Bytes
 
-    @Transactional
     public String generateRefreshToken(final long userId) {
         SecureRandom random = createSecureRandom();
 
