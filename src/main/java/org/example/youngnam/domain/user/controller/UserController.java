@@ -15,7 +15,6 @@ public class UserController {
     private final UserService userService;
 
     @PatchMapping("/users/info")
-
     public ResponseEntity<Void> postBusinessInfo(@UserId final Long userId,
                                               @RequestBody final UserBusinessInfoReq userBusinessInfoReq) {
         userService.patchBlogId(userId, userBusinessInfoReq.businessName(), userBusinessInfoReq.location(), userBusinessInfoReq.address());

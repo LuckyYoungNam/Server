@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.youngnam.domain.refreshtoken.entitiy.RefreshToken;
 import org.example.youngnam.domain.refreshtoken.repository.RefreshTokenRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;
@@ -16,6 +17,7 @@ public class RefreshTokenGenerator {
     private final RefreshTokenRepository refreshTokenRepository;
     private static final int TOKEN_BYTE_SIZE = 60 * 6 / 8; // 45 Bytes
 
+    @Transactional
     public String generateRefreshToken(final long userId) {
         SecureRandom random = createSecureRandom();
 
