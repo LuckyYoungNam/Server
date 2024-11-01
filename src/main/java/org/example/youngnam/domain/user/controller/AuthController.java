@@ -6,17 +6,15 @@ import org.example.youngnam.domain.user.service.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://inuluckyyoungnam.vercel.app")
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("users/login")
+    @PostMapping("/users/login")
     public ResponseEntity<UserLoginRes> login(@RequestHeader(HttpHeaders.AUTHORIZATION) final String authenticationCode) {
         return ResponseEntity.status(HttpStatus.OK).body(authService.login(authenticationCode));
     }
