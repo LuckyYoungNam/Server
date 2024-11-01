@@ -26,6 +26,7 @@ public class SecurityConfig {
 //    private final CorsConfig corsConfig;
     private static final String[] whiteList = {
             "/users/login",
+            "/users/info",
             "/actuator/health",
             "/swagger-ui/**",
             "/error",
