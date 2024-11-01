@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://inuluckyyoungnam.vercel.app")
+@CrossOrigin(
+        origins = "https://inuluckyyoungnam.vercel.app",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH}
+)
 public class UserController {
     private final UserService userService;
 
     @PatchMapping("/users/info")
+
     public ResponseEntity<Void> postBusinessInfo(@UserId final Long userId,
                                               @RequestBody final UserBusinessInfoReq userBusinessInfoReq) {
         userService.patchBlogId(userId, userBusinessInfoReq.businessName(), userBusinessInfoReq.location(), userBusinessInfoReq.address());
