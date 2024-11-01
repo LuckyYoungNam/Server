@@ -10,6 +10,7 @@ import org.example.youngnam.external.feign.kakao.KakaoFeignProvider;
 import org.example.youngnam.global.exception.exceptions.EntityNotFoundException;
 import org.example.youngnam.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +19,9 @@ public class AuthService {
     private final KakaoFeignProvider kakaoFeignProvider;
     private final JwtProvider jwtProvider;
 
+    @Transactional
     public UserLoginRes login(final String authorizationCode) {
-        String socialId = kakaoFeignProvider.login(authorizationCode);
+        final String socialId = kakaoFeignProvider.login(authorizationCode);
 
         //이미 유저 있을 경우
         if (isExistUser(socialId)) {
