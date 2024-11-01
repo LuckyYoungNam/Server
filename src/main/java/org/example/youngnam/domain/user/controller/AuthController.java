@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://inuluckyyoungnam.vercel.app")
-public class AuthController {
+@CrossOrigin(
+        origins = "https://inuluckyyoungnam.vercel.app",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH}
+)public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/users/login")
