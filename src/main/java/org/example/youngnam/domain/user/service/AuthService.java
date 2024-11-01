@@ -3,6 +3,8 @@ package org.example.youngnam.domain.user.service;
 import lombok.RequiredArgsConstructor;
 import org.example.youngnam.auth.jwt.JwtProvider;
 import org.example.youngnam.auth.jwt.Token;
+import org.example.youngnam.domain.refreshtoken.entitiy.RefreshToken;
+import org.example.youngnam.domain.refreshtoken.repository.RefreshTokenRepository;
 import org.example.youngnam.domain.user.dto.UserLoginRes;
 import org.example.youngnam.domain.user.entity.User;
 import org.example.youngnam.domain.user.repository.UserRepository;
@@ -18,6 +20,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final KakaoFeignProvider kakaoFeignProvider;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
     public UserLoginRes login(final String authorizationCode) {
@@ -28,6 +31,8 @@ public class AuthService {
             final User foundUser = userRepository.findBySocialId(socialId).orElseThrow(
                     () -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND)
             );
+            refreshTokenRepository.deleteByUserId(foundUser.getUserId());
+
             return issueToken(foundUser.getUserId());
         } else { // 첫 가입 유저
             final User newUser = User.create(socialId);
