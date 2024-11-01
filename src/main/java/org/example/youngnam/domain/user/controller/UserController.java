@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(
-        origins = "https://inuluckyyoungnam.vercel.app",
-        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH}
-)
 public class UserController {
     private final UserService userService;
 
