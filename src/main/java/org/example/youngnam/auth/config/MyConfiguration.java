@@ -12,6 +12,6 @@ public class MyConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("https://inuluckyyoungnam.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-                .allowedHeaders("*");
+                .allowedHeaders("Content-Type");
     }
 }
