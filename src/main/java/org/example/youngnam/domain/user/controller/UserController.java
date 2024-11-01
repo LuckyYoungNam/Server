@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/users/info")
-    public ResponseEntity<UserBusinessInfoRes> postBusinessInfo(@UserId final Long userId) {
+    public ResponseEntity<UserBusinessInfoRes> getBusinessInfo(@UserId final Long userId) {
         final UserBusinessInfoRes userBusinessInfoRes = userService.getUserBusinessInfo(userId);
         return ResponseEntity.status(HttpStatus.OK).body(userBusinessInfoRes);
     }
