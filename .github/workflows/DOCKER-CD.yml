@@ -1,4 +1,4 @@
-name: CD
+name: DOCKER-CD
 on:
   push:
     branches: [ "dev" ]
