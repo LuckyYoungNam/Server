@@ -7,6 +7,8 @@ import org.example.youngnam.domain.post.dto.response.PostResponseDTO;
 import org.example.youngnam.domain.post.entity.Post;
 import org.example.youngnam.domain.post.service.PostService;
 import org.example.youngnam.domain.post.vo.PostFindOneVO;
+import org.example.youngnam.domain.user.entity.User;
+import org.example.youngnam.domain.user.service.UserService;
 import org.example.youngnam.global.gpt.service.GptService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class PostFacade {
     private final PostService postService;
+    private final UserService userService;
     private final GptService gptService;
 
     @Transactional
     public PostResponseDTO.PostGptContentSaveDTO savePostAndGenerateGptContent(final Long userId, PostRequestDTO.PostPreContentSaveDTO requestDTO) {
         Post savedPost = postService.savePostPreContent(userId, requestDTO);
+        User findUser = userService.findUserById(userId);
 
-        String gptContent = gptService.generateGptContent(savedPost.getPostGptContent());
+        String gptContent = gptService.generateGptContent(findUser, savedPost.getPostGptContent());
         return postService.savePostGptContent(gptContent, savedPost);
     }
 

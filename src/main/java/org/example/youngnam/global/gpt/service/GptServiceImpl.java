@@ -2,6 +2,7 @@ package org.example.youngnam.global.gpt.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.youngnam.domain.user.entity.User;
 import org.example.youngnam.global.exception.exceptions.GptException;
 import org.example.youngnam.global.gpt.dto.request.GptRequestDTO;
 import org.example.youngnam.global.gpt.dto.response.GptResponseDTO;
@@ -34,13 +35,18 @@ public class GptServiceImpl implements GptService {
     private static final int RETRY_ATTEMPTS = 3;
     private static final int RETRY_DELAY_SECONDS = 5;
 
-    private static final String PROMPT = "사용자가 작성한 짧은 멘트를 참고하여, 친근하고 귀여운 블로그 스타일로 길이감 있게 확장해 주세요. " +
-            "이모티콘을 적절히 섞어 가게의 따뜻하고 포근한 분위기를 표현해 주세요. 고객들이 편안하고 친근한 느낌을 받을 수 있도록 문장과 표현을 세심하게 다듬어 주세요.";
+    private static final String PROMPT_TEMPLATE = "사용자가 작성한 짧은 멘트를 참고하여, 친근하고 귀여운 블로그 스타일로 길이감 있게 확장해 주세요. " +
+            "가게의 따뜻하고 포근한 분위기를 잘 살리기 위해, 다음 정보를 여러 번 자연스럽게 녹여주세요: 가게 이름은 **%s**, 위치는 **%s**이며, 주소는 **%s**입니다. " +
+            "이 장소가 주는 편안함과 친근함을 이모티콘과 따뜻한 표현으로 세심하게 다듬어 고객들이 마치 이곳에 와 있는 듯한 느낌을 받을 수 있도록 해 주세요. " +
+            "\n\n" +
+            "가게 이름: %s\n" +
+            "위치: %s\n" +
+            "주소: %s";
 
     @Override
     @Transactional
-    public String generateGptContent(String userContent) {
-        String completePrompt = PROMPT + userContent;
+    public String generateGptContent(final User user, String userContent) {
+        String completePrompt = String.format(PROMPT_TEMPLATE, user.getBusinessName(), user.getBusinessLocation(), user.getBusinessAddress()) + userContent;
 
         GptRequestDTO.GptCompletionDTO requestDTO = new GptRequestDTO.GptCompletionDTO(model,
                 List.of(new GptRequestDTO.GptMessageDTO("user", completePrompt)));

@@ -35,7 +35,7 @@ public class UserService {
                 foundUser.getBusinessAddress());
     }
 
-    private User findUserById(final Long userID) {
+    public User findUserById(final Long userID) {
         return userRepository.findById(userID).orElseThrow(
                 () -> new EntityNotFoundException(ErrorCode.NOT_FOUND_USER)
         );
