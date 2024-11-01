@@ -25,6 +25,7 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtProvider jwtProvider;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final CorsFilter corsFilter;
 //        private final CorsConfig corsConfig;
     private static final String[] whiteList = {
             "/users/login",
@@ -54,6 +55,7 @@ public class SecurityConfig {
                                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                         .anyRequest()
                                         .authenticated())
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class) // CorsFilter 추가
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(exceptionHandlerFilter, JwtAuthenticationFilter.class)
                 .build();
