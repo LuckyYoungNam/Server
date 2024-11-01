@@ -35,8 +35,10 @@ public class GptServiceImpl implements GptService {
     private static final int RETRY_ATTEMPTS = 3;
     private static final int RETRY_DELAY_SECONDS = 5;
 
-    private static final String PROMPT = "사용자가 작성한 짧은 멘트를 참고하여, 친근하고 귀여운 블로그 스타일로 길이감 있게 확장해 주세요. " +
-            "이모티콘을 적절히 섞어 가게의 따뜻하고 포근한 분위기를 표현해 주세요. 고객들이 편안하고 친근한 느낌을 받을 수 있도록 문장과 표현을 세심하게 다듬어 주세요.";
+    private static final String PROMPT = "사용자가 작성한 짧은 멘트를 참고하여, 최대한 길게 친근하고 귀여운 블로그 스타일로 길이감 있게 확장해 주세요. " +
+            "이모티콘을 적절히 섞어 가게의 따뜻하고 포근한 분위기를 표현해 주세요. " +
+            "고객들이 편안하고 친근한 느낌을 받을 수 있도록 문장과 표현을 세심하게 다듬어 주세요." +
+            "정화한 정보를 전달할 수 있게 도와주세요. ";
 
     @Override
     @Transactional
