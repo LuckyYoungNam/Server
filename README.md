@@ -28,8 +28,12 @@
 ## 🎥 시연 영상
 ![홍보사원 영남이](https://github.com/user-attachments/assets/9d01408a-7b58-4c6f-9c9e-5e7a1739d975)
 
+<br>
+
 ## 🕰️ 개발 기간
 * 24.10.17 - 2024.11.02
+
+<br>
 
 ## ⚙️ 개발 환경
 - `Java 17`
@@ -37,6 +41,8 @@
 - **Framework** : Springboot(3.0.6)
 - **Database** : PostgreSQL
 - **ORM** : Hibernate (Spring Data JPA 사용)
+
+<br>
 
 ## 🧑‍🤝‍🧑 멤버 구성
 <p>
@@ -48,8 +54,12 @@
     </a>
 </p>
 
+<br>
+
 ## 🛠️아키텍처 구조도
 <img src="https://github.com/user-attachments/assets/32065253-f09b-43c1-b390-92b0e78a0432" width="50%">
+
+<br>
 
 ## 📝 규칙
 - `커밋 컨벤션`
@@ -61,29 +71,22 @@
     - Test: 테스트 코드, 리팩토링 테스트 코드 추가
     - Chore: 빌드 업무 수정, 패키지 매니저 수정
 
-<br>
-
 - `branch 규칙`
     - 이슈 번호와 기능을 딴 branch 명을 사용한다.
     - 예시
         - git checkout -b 타입/이슈번호
         - git checkout -b feat/1
 
-<br>
-
 - `commit message 규칙`
     - 종류: 메시지
     - 예시
         - Feat: 커밋 내용 - #이슈번호
         - Feat: 로그인 구현 - #1
-<br>
 
 - `DTO 규칙`
     - 엔티티명 + Res/Req + 역할 + DTO
     - 예시
         - UserResSaveDTO
         - PostReqSaveDTO
-
-## 📌 API 명세서
 
 ---
